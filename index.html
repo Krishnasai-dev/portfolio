@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G Krishna Sai Vardhan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --surface:#131720;
+    --surface2:#1B2130;
+    --text:#E6E8EB;
+    --muted:#7F8896;
+    --accepted:#3FB950;
+    --accepted-dim:#1F5C2D;
+    --amber:#F0A94F;
+    --rule:#232A38;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+    background-position: -1px -1px;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--accepted-dim); color:var(--text);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .brand{font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:0.5px;}
+  .brand .dot{color:var(--accepted);}
+  .navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px;}
+  .navlinks a{color:var(--muted); text-decoration:none; transition:color .15s;}
+  .navlinks a:hover{color:var(--accepted);}
+  @media(max-width:640px){.navlinks{display:none;}}
+
+  /* HERO — judge verdict panel */
+  .hero{padding:88px 0 64px;}
+  .verdict-panel{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .verdict-topbar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 18px;
+    background:var(--surface2);
+    border-bottom:1px solid var(--rule);
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .verdict-topbar .light{width:9px; height:9px; border-radius:50%; background:var(--rule);}
+  .verdict-topbar .light.r{background:#4a3535;}
+  .verdict-topbar .light.y{background:#4a4535;}
+  .verdict-topbar .light.g{background:var(--accepted-dim);}
+  .verdict-body{padding:36px 32px 40px;}
+  .verdict-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:13px; font-weight:600;
+    color:var(--accepted);
+    background:rgba(63,185,80,0.1);
+    border:1px solid var(--accepted-dim);
+    padding:5px 12px; border-radius:5px;
+    margin-bottom:22px;
+  }
+  .verdict-tag .blink{
+    width:7px; height:7px; border-radius:50%; background:var(--accepted);
+    animation:blink 1.4s infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+
+  h1.name{
+    font-family:var(--mono); font-weight:800;
+    font-size:clamp(28px, 5vw, 46px);
+    letter-spacing:-0.5px;
+    margin-bottom:10px;
+  }
+  .role{
+    color:var(--muted); font-size:16px; margin-bottom:28px; max-width:520px;
+  }
+  .role strong{color:var(--text); font-weight:600;}
+
+  .contact-row{display:flex; flex-wrap:wrap; gap:10px 18px; font-family:var(--mono); font-size:13px; color:var(--muted);}
+  .contact-row a{text-decoration:none; border-bottom:1px dashed var(--rule); padding-bottom:1px; transition:color .15s, border-color .15s;}
+  .contact-row a:hover{color:var(--amber); border-color:var(--amber);}
+
+  /* stat strip */
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--rule);
+  }
+  .stat{
+    padding:20px 18px; border-right:1px solid var(--rule);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:var(--mono); font-weight:700; font-size:26px; color:var(--amber);}
+  .stat .label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.6px; margin-top:4px;}
+  @media(max-width:640px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .stat{border-bottom:1px solid var(--rule);}
+  }
+
+  /* SECTION HEADERS */
+  .section{padding:64px 0;}
+  .sec-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:34px;
+  }
+  .sec-num{font-family:var(--mono); color:var(--accepted); font-size:14px; font-weight:700;}
+  .sec-title{font-family:var(--mono); font-size:22px; font-weight:700;}
+  .sec-rule{flex:1; height:1px; background:var(--rule);}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+  .about-line{
+    display:flex; gap:14px; padding:14px 16px;
+    background:var(--surface); border:1px solid var(--rule); border-radius:6px;
+    font-size:14.5px;
+  }
+  .about-line .tick{color:var(--accepted); font-family:var(--mono); font-weight:700; flex-shrink:0;}
+
+  /* SKILLS — grouped like judge language selector */
+  .skill-groups{display:flex; flex-direction:column; gap:22px;}
+  .skill-group-label{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;
+  }
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:12.5px; font-weight:500;
+    padding:7px 12px; border-radius:5px;
+    background:var(--surface); border:1px solid var(--rule); color:var(--text);
+    transition:border-color .15s, transform .15s;
+  }
+  .chip:hover{border-color:var(--amber); transform:translateY(-1px);}
+
+  /* PROJECTS — test-case cards */
+  .case{
+    background:var(--surface); border:1px solid var(--rule); border-radius:8px;
+    margin-bottom:18px; overflow:hidden;
+  }
+  .case-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; background:var(--surface2); border-bottom:1px solid var(--rule);
+  }
+  .case-id{font-family:var(--mono); font-size:12px; color:var(--muted);}
+  .case-verdict{
+    font-family:var(--mono); font-size:11px; font-weight:700;
+    color:var(--accepted); background:rgba(63,185,80,0.1);
+    border:1px solid var(--accepted-dim); padding:3px 9px; border-radius:4px;
+  }
+  .case-body{padding:22px 20px;}
+  .case-title{font-family:var(--mono); font-weight:700; font-size:17px; margin-bottom:6px;}
+  .case-stack{font-family:var(--mono); font-size:12px; color:var(--amber); margin-bottom:14px;}
+  .case-body ul{list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .case-body li{display:flex; gap:10px; font-size:14px; color:var(--text);}
+  .case-body li::before{content:"›"; color:var(--muted); flex-shrink:0;}
+
+  /* ACHIEVEMENTS */
+  .ach-list{display:flex; flex-direction:column; gap:0;}
+  .ach{
+    display:flex; gap:18px; padding:18px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .ach:last-child{border-bottom:none;}
+  .ach-icon{font-family:var(--mono); color:var(--amber); font-weight:700; font-size:13px; flex-shrink:0; width:64px;}
+  .ach-text{font-size:14.5px;}
+
+  /* CONTACT / FOOTER */
+  .contact-cta{
+    text-align:center; padding:72px 0 40px;
+  }
+  .contact-cta h2{
+    font-family:var(--mono); font-size:clamp(24px,4vw,34px); margin-bottom:14px;
+  }
+  .contact-cta p{color:var(--muted); max-width:440px; margin:0 auto 28px;}
+  .btn-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13px; font-weight:600;
+    padding:12px 22px; border-radius:6px; text-decoration:none;
+    transition:transform .15s, opacity .15s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.primary{background:var(--accepted); color:#0B0E14;}
+  .btn.ghost{border:1px solid var(--rule); color:var(--text);}
+
+  footer{
+    border-top:1px solid var(--rule);
+    padding:26px 0; text-align:center;
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">krishna<span class="dot">.</span>sai</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#achievements">achievements</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="verdict-panel">
+      <div class="verdict-topbar">
+        <span class="light r"></span><span class="light y"></span><span class="light g"></span>
+        <span style="margin-left:8px;">submission #001 — main.cpp</span>
+      </div>
+      <div class="verdict-body">
+        <div class="verdict-tag"><span class="blink"></span> STATUS: ACCEPTED</div>
+        <h1 class="name">G Krishna Sai Vardhan</h1>
+        <p class="role"><strong>Computer Science undergraduate</strong> building full-stack web applications and solving algorithmic problems — currently seeking a software engineering internship.</p>
+        <div class="contact-row">
+          <a href="mailto:krishnasai2509@gmail.com">krishnasai2509@gmail.com</a>
+          <a href="tel:+919381027990">+91 93810 27990</a>
+          <a href="https://github.com/Krishnasai-dev" target="_blank" rel="noopener">github.com/Krishnasai-dev</a>
+          <a href="https://www.linkedin.com/in/krishna-sai-vardhan-ab355531a/" target="_blank" rel="noopener">linkedin</a>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num">400+</div><div class="label">Problems Solved</div></div>
+        <div class="stat"><div class="num">1757</div><div class="label">AIR — AP EAMCET</div></div>
+        <div class="stat"><div class="num">7.2</div><div class="label">CGPA / 10</div></div>
+        <div class="stat"><div class="num">2028</div><div class="label">Graduating Year</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">about</span><div class="sec-rule"></div></div>
+    <div class="about-grid">
+      <div class="about-line"><span class="tick">✓</span><span>B.Tech in Computer Science and Engineering at <strong>IIITDM Jabalpur</strong>, 2024 – 2028.</span></div>
+      <div class="about-line"><span class="tick">✓</span><span>Hands-on full-stack development experience with a strong foundation in data structures, algorithms, and core CS systems.</span></div>
+      <div class="about-line"><span class="tick">✓</span><span>Elected <strong>Student Senate Member</strong> at IIITDM Jabalpur, representing student interests in academic and administrative matters.</span></div>
+      <div class="about-line"><span class="tick">✓</span><span>Photographer specializing in landscapes, portraits, and event coverage — covered multiple college fests.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">skills</span><div class="sec-rule"></div></div>
+    <div class="skill-groups">
+      <div>
+        <div class="skill-group-label">// languages</div>
+        <div class="chips">
+          <span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">C++</span><span class="chip">C</span><span class="chip">SQL</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">// web development</div>
+        <div class="chips">
+          <span class="chip">Next.js</span><span class="chip">React.js</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">HTML</span><span class="chip">CSS</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">// databases</div>
+        <div class="chips">
+          <span class="chip">MySQL</span><span class="chip">MongoDB</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">// core cs</div>
+        <div class="chips">
+          <span class="chip">Data Structures & Algorithms</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">Operating Systems</span><span class="chip">Computer Networks</span><span class="chip">Data Science</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-label">// tools</div>
+        <div class="chips">
+          <span class="chip">Git</span><span class="chip">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">projects</span><div class="sec-rule"></div></div>
+
+    <div class="case">
+      <div class="case-head">
+        <span class="case-id">test_case_01</span>
+        <span class="case-verdict">AC</span>
+      </div>
+      <div class="case-body">
+        <div class="case-title">Domestic Utility Management System</div>
+        <div class="case-stack">Full-Stack Web Development</div>
+        <ul>
+          <li>Built a full-stack web application with role-based access control across three user types — Admin, Worker, and Customer — each with distinct permissions and workflows.</li>
+          <li>Implemented end-to-end service lifecycle features including booking, worker assignment, real-time status tracking, and customer feedback collection.</li>
+          <li>Designed responsive frontend interfaces and RESTful backend APIs to support reliable data flow between client and server.</li>
+          <li>Architected a relational database schema supporting multiple concurrent user roles and service types for scalability.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-head">
+        <span class="case-id">test_case_02</span>
+        <span class="case-verdict">AC</span>
+      </div>
+      <div class="case-body">
+        <div class="case-title">Rule-Based Chatbot</div>
+        <div class="case-stack">React.js · JavaScript · HTML · CSS</div>
+        <ul>
+          <li>Built an interactive rule-based chatbot with a responsive, component-based UI using React.js.</li>
+          <li>Implemented predefined response logic and dynamic message rendering through reusable React components.</li>
+          <li>Improved user experience with automatic scrolling and optimized state management for smooth, real-time conversation flow.</li>
+          <li>Used Git and GitHub for version control throughout development.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="achievements">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">achievements</span><div class="sec-rule"></div></div>
+    <div class="ach-list">
+      <div class="ach"><span class="ach-icon">[CP]</span><span class="ach-text">Solved <strong>400+ Data Structures and Algorithms problems</strong> across LeetCode, CodeChef, Codeforces, and other competitive programming platforms.</span></div>
+      <div class="ach"><span class="ach-icon">[EXAM]</span><span class="ach-text">Secured <strong>All India Rank 1757</strong> in AP EAMCET among 4 Lakh+ (400,000+) candidates.</span></div>
+      <div class="ach"><span class="ach-icon">[LEAD]</span><span class="ach-text">Elected as <strong>Student Senate Member</strong> at IIITDM Jabalpur, representing student interests in academic and administrative matters.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-cta" id="contact">
+  <div class="wrap">
+    <h2>// let's compile something together</h2>
+    <p>Open to software engineering internships. Reach out on any platform below.</p>
+    <div class="btn-row">
+      <a class="btn primary" href="mailto:krishnasai2509@gmail.com">Send an email</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/krishna-sai-vardhan-ab355531a/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/Krishnasai-dev" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="https://leetcode.com/u/krishna__sai/" target="_blank" rel="noopener">LeetCode</a>
+      <a class="btn ghost" href="https://codeforces.com/profile/kr1shnasa1" target="_blank" rel="noopener">Codeforces</a>
+      <a class="btn ghost" href="https://www.codechef.com/users/valid_hares_19" target="_blank" rel="noopener">CodeChef</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  built by G Krishna Sai Vardhan — © 2026
+</footer>
+
+</body>
+</html>
